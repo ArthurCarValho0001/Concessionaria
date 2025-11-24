@@ -1,5 +1,5 @@
 <h1>Cadastrar Funcionário</h1>
-<form action="?page=salvar-funcionario" method="POST">
+<form action="?page=salvar-funcionarios" method="POST">
 	<input type="hidden" name="acao" value="cadastrar">
 	<div class="mb-3">
 		<label>Nome

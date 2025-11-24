@@ -1,5 +1,5 @@
 <h1>Cadastrar Cliente</h1>
-<form action="?page=salvar-cliente" method="POST">
+<form action="?page=salvar-clientes" method="POST">
 	<input type="hidden" name="acao" value="cadastrar">
 	<div class="mb-3">
 		<label>Nome

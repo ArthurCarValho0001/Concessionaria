@@ -1,52 +1,58 @@
-<?php 
-	
-	switch ($_REQUEST['acao']) {
-		case 'cadastrar':
-			$nome	= $_POST['nome_modelo'];
-			$email	= $_POST['email_modelo'];
-			$telefone = $_POST['telefone_modelo'];
+<?php
+    switch ($_REQUEST["acao"]) {
+        case 'cadastrar':
+            $marca = $_POST["marca_id_marca"];
+            $nome = $_POST["nome_modelo"];
+            $cor = $_POST["cor_modelo"];
+            $ano = $_POST["ano_modelo"];
+            $tipo = $_POST["tipo_modelo"];
 
-			$sql = "INSERT INTO modelo (nome_modelo, email_modelo, telefone_modelo)
-					VALUES ('{$nome}', '{$email}', '{$telefone}')";
+            $sql = "INSERT INTO modelo (marca_id_marca, nome_modelo, cor_modelo, ano_modelo, tipo_modelo) VALUES ({$marca}, '{$nome}', '{$cor}', '{$ano}', '{$tipo}')";
 
-			$res = $conn->query($sql);
+            $res = $conn->query($sql);
 
-			if ($res==true) {
-				print "<script>alert('cadastrou com sucesso');</script>";
-				print "<script>location.href='?page=listar-modelo';</script>";
-			}else{
-				print "<script>alert('Não cadastrou');</script>";
-				print "<script>location.href='?page=listar-modelo';</script>";
-			}
-		break;
-		
-		case 'editar':
-			$nome = $_POST['nome_modelo'];
-			$email = $_POST['email_modelo'];
-			$telefone = $_POST['telefone_modelo'];
+            if($res==true){
+                print "<script>alert('Modelo cadastrado com sucesso');</script>";
+                print "<script>location.href='?page=listar-modelo';</script>";
+            }else{
+                print "<script>alert('Não foi possível cadastrar');</script>";
+                print "<script>location.href='?page=listar-modelo';</script>";
+            }
+            break;
+        
+        case 'editar':
+            $marca = $_POST["marca_id_marca"];
+            $nome = $_POST["nome_modelo"];
+            $cor = $_POST["cor_modelo"];
+            $ano = $_POST["ano_modelo"];
+            $tipo = $_POST["tipo_modelo"];
+            $id = $_POST["id_modelo"];
 
-			$sql = "UPDATE modelo SET nome_modelo='{$nome}', email_modelo='{$email}', telefone_modelo='{$telefone}' WHERE id_modelo='".$_REQUEST['id_modelo']."'";
-			$res = $conn->query($sql);
+            $sql = "UPDATE modelo SET marca_id_marca={$marca}, nome_modelo='{$nome}', cor_modelo='{$cor}', ano_modelo='{$ano}', tipo_modelo='{$tipo}' WHERE id_modelo={$id}";
 
-			if($res == true){
-				print "<script>alert('Editou com sucesso!');</script>";
-				print "<script>location.href='?page=listar-modelo';</script>";
-			}else{
-				print "<script>alert('Não editou');</script>";
-				print "<script>location.href='?page=listar-modelo';</script>";
-			}
-		break;
+            $res = $conn->query($sql);
 
-		case 'excluir':
-    		$sql = "DELETE FROM modelo WHERE id_modelo='".$_REQUEST['id_modelo']."'";
-    		$res = $conn->query($sql);
+            if($res==true){
+                print "<script>alert('Modelo editado com sucesso');</script>";
+                print "<script>location.href='?page=listar-modelo';</script>";
+            }else{
+                print "<script>alert('Não foi possível editar');</script>";
+                print "<script>location.href='?page=listar-modelo';</script>";
+            }
+            break;
 
-    		if($res == true){
-        	print "<script>alert('Excluiu com sucesso!');</script>";
-        	print "<script>location.href='?page=listar-modelo';</script>";
-    	}else{
-        	print "<script>alert('Não excluiu');</script>";
-        	print "<script>location.href='?page=listar-modelo';</script>";
-    	}
-    	break;
-	}
+        case 'excluir':
+            $sql = "DELETE FROM modelo WHERE id_modelo=".$_REQUEST["id_modelo"];
+
+            $res = $conn->query($sql);
+
+            if($res==true){
+                print "<script>alert('Modelo excluído com sucesso');</script>";
+                print "<script>location.href='?page=listar-modelo';</script>";
+            }else{
+                print "<script>alert('Não foi possível excluir');</script>";
+                print "<script>location.href='?page=listar-modelo';</script>";
+            }
+            break;
+    }
+?>

@@ -1,52 +1,58 @@
-<?php 
-	
-	switch ($_REQUEST['acao']) {
-		case 'cadastrar':
-			$nome	= $_POST['nome_venda'];
-			$email	= $_POST['email_venda'];
-			$telefone = $_POST['telefone_venda'];
+<?php
+    switch ($_REQUEST["acao"]) {
+        case 'cadastrar':
+            $cliente = $_POST["cliente_id_cliente"];
+            $funcionario = $_POST["funcionario_id_funcionario"];
+            $modelo = $_POST["modelo_id_modelo"];
+            $data = $_POST["data_venda"];
+            $valor = $_POST["valor_venda"];
 
-			$sql = "INSERT INTO venda (nome_venda, email_venda, telefone_venda)
-					VALUES ('{$nome}', '{$email}', '{$telefone}')";
+            $sql = "INSERT INTO venda (cliente_id_cliente, funcionario_id_funcionario, modelo_id_modelo, data_venda, valor_venda) VALUES ({$cliente}, {$funcionario}, {$modelo}, '{$data}', '{$valor}')";
 
-			$res = $conn->query($sql);
+            $res = $conn->query($sql);
 
-			if ($res==true) {
-				print "<script>alert('cadastrou com sucesso');</script>";
-				print "<script>location.href='?page=listar-venda';</script>";
-			}else{
-				print "<script>alert('Não cadastrou');</script>";
-				print "<script>location.href='?page=listar-venda';</script>";
-			}
-		break;
-		
-		case 'editar':
-			$nome = $_POST['nome_venda'];
-			$email = $_POST['email_venda'];
-			$telefone = $_POST['telefone_venda'];
+            if($res==true){
+                print "<script>alert('Venda cadastrada com sucesso');</script>";
+                print "<script>location.href='?page=listar-venda';</script>";
+            }else{
+                print "<script>alert('Não foi possível cadastrar');</script>";
+                print "<script>location.href='?page=listar-venda';</script>";
+            }
+            break;
+        
+        case 'editar':
+            $cliente = $_POST["cliente_id_cliente"];
+            $funcionario = $_POST["funcionario_id_funcionario"];
+            $modelo = $_POST["modelo_id_modelo"];
+            $data = $_POST["data_venda"];
+            $valor = $_POST["valor_venda"];
+            $id = $_POST["id_venda"];
 
-			$sql = "UPDATE venda SET nome_venda='{$nome}', email_venda='{$email}', telefone_venda='{$telefone}' WHERE id_venda='".$_REQUEST['id_venda']."'";
-			$res = $conn->query($sql);
+            $sql = "UPDATE venda SET cliente_id_cliente={$cliente}, funcionario_id_funcionario={$funcionario}, modelo_id_modelo={$modelo}, data_venda='{$data}', valor_venda='{$valor}' WHERE id_venda={$id}";
 
-			if($res == true){
-				print "<script>alert('Editou com sucesso!');</script>";
-				print "<script>location.href='?page=listar-venda';</script>";
-			}else{
-				print "<script>alert('Não editou');</script>";
-				print "<script>location.href='?page=listar-venda';</script>";
-			}
-		break;
+            $res = $conn->query($sql);
 
-		case 'excluir':
-    		$sql = "DELETE FROM venda WHERE id_venda='".$_REQUEST['id_venda']."'";
-    		$res = $conn->query($sql);
+            if($res==true){
+                print "<script>alert('Venda editada com sucesso');</script>";
+                print "<script>location.href='?page=listar-venda';</script>";
+            }else{
+                print "<script>alert('Não foi possível editar');</script>";
+                print "<script>location.href='?page=listar-venda';</script>";
+            }
+            break;
 
-    		if($res == true){
-        	print "<script>alert('Excluiu com sucesso!');</script>";
-        	print "<script>location.href='?page=listar-venda';</script>";
-    	}else{
-        	print "<script>alert('Não excluiu');</script>";
-        	print "<script>location.href='?page=listar-venda';</script>";
-    	}
-    	break;
-	}
+        case 'excluir':
+            $sql = "DELETE FROM venda WHERE id_venda=".$_REQUEST["id_venda"];
+
+            $res = $conn->query($sql);
+
+            if($res==true){
+                print "<script>alert('Venda excluída com sucesso');</script>";
+                print "<script>location.href='?page=listar-venda';</script>";
+            }else{
+                print "<script>alert('Não foi possível excluir');</script>";
+                print "<script>location.href='?page=listar-venda';</script>";
+            }
+            break;
+    }
+?>
